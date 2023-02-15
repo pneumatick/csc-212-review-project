@@ -26,17 +26,17 @@ int main() {
             std::cout << "Input the name of the assignment:" << std::endl;
             std::cin >> opt1_n;
 
-            grades.getAssignmentGrade(opt1_c, opt1_n);
+            grades.get_assignment_grade(opt1_c, opt1_n);
         }
         else if(value == "2"){
             std::string opt2_c;
-            std::cout << "Input the name of the category you want the total grade for:" std::endl;
+            std::cout << "Input the name of the category you want the total grade for:" << std::endl;
             std::cin >> opt2_c;
 
-            grades.getCategoryGrade(opt2_c);
+            grades.get_category_grade(opt2_c);
         }
         else if (value == "3"){
-            grades.getTotalGrade();
+            grades.get_total_grade();
         }
         else if(value == "4"){
             std::string opt4_c;
@@ -52,7 +52,7 @@ int main() {
             std::cout << "Input the grade of the assignment you're adding:" << std::endl;
             std::cin >> opt4_g;
 
-            grades.addGrade(opt4_c, opt4_n, opt4_g);
+            grades.add_grade(opt4_c, opt4_n, std::stod(opt4_g));
         }
         else if(value == "5"){
             exit = true;
