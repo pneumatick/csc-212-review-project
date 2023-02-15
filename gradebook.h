@@ -1,12 +1,14 @@
-//
-// Created by ser94 on 2/14/2023.
-//
-
 #ifndef REVIEWPROJECT_GRADEBOOK_H
 #define REVIEWPROJECT_GRADEBOOK_H
 
 #include <iostream>
 #include <vector>
+
+// Category name constants
+const std::string LABS = "labs";
+const std::string ASSIGNMENTS = "assignments";
+const std::string PROJECTS = "projects";
+const std::string EXAMS = "exams";
 
 // I haven't checked to see what the maximum points available for each 
 // category are yet, so I'm just setting them to 1 as a placeholder.
