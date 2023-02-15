@@ -8,13 +8,23 @@
 #include <iostream>
 #include <vector>
 
+// I haven't checked to see what the maximum points available for each 
+// category are yet, so I'm just setting them to 1 as a placeholder.
+const double MAX_LAB_GRADE = 1.0;
+const double MAX_ASSIGNMENT_GRADE = 1.0;
+const double MAX_PROJECT_GRADE = 1.0;
+const double MAX_EXAM_GRADE = 1.0;
+
 class Gradebook{
 
 private:
-    double max_lab_grade;
-    double max_assignment_grade;
-    double max_projects_grade;
-    double max_exam_grade;
+    // Total points that the student has received for all assignments in each 
+    // category (not a percentage).
+    double lab_grades_total;
+    double assignment_grades_total;
+    double project_grades_total;
+    double exam_grades_total;
+
     std::vector<std::pair<std::string,double>> labs;
     std::vector<std::pair<std::string,double>> assignments;
     std::vector<std::pair<std::string,double>> projects;
@@ -23,25 +33,14 @@ private:
 public:
     Gradebook();
     Gradebook(std::string inputFile);
-    void Set_Max_Lab_Grade(double value);
-    double Get_Max_Lab_Grade();
-
-    void Set_Max_Assignment_Grade(double value);
-    double Get_Max_Assignment_Grade();
-
-    void Set_Max_Projects_Grade(double value);
-    double Get_Max_Projects_Grade();
-
-    void Set_Max_Exam_Grade(double value);
-    double Get_Max_Exam_Grade();
-
-    void getAssignmentGrade(std::string category, std::string name);
-
-    void getCategoryGrade(std::string category);
-
-    void getTotalGrade();
-
-    void addGrade(std::string category,std::string name, double grade);
+    double Get_Lab_Grade();
+    double Get_Assignment_Grade();
+    double Get_Projects_Grade();
+    double Get_Exam_Grade();
+    double get_assignment_grade(std::string category, std::string name);
+    double get_category_grade(std::string category);
+    double get_total_grade();
+    void add_grade(std::string category, std::string name, double grade);
 
 };
 

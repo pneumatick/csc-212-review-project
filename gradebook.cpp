@@ -4,39 +4,58 @@
 #import "gradebook.h"
 
 Gradebook::Gradebook(){
-    this->max_assignment_grade = 0;
-    this->max_exam_grade = 0;
-    this->max_lab_grade =0;
-    this->max_projects_grade = 0;
+    this->assignment_grade_total = 0.0;
+    this->exam_grade_total = 0.0;
+    this->lab_grade_total = 0.0;
+    this->projects_grade_total = 0.0;
 }
 
 Gradebook::Gradebook(std::string inputFile){
 
 }
-void Gradebook::Set_Max_Lab_Grade(double value) {
-    this->max_lab_grade = value;
+
+// Return the student's cumulative grade for all graded labs
+double Gradebook::Get_Lab_Grade() {
+    if (labs.size() == 0) {
+	return 100.0;
+    }
+
+    return (this->lab_grades_total / (MAX_LAB_GRADE * labs.size())) * 100;
 }
 
-double Gradebook::Get_Max_Lab_Grade() {
-    return this->max_lab_grade;
+// Return the student's cumulative grade for all graded assignments
+double Gradebook::Get_Assignment_Grade() {
+    if (assignments.size() == 0) {
+	return 100.0;
+    }
+
+    return (this->assignment_grades_total / (MAX_ASSIGMENT_GRADE * assignments.size())) * 100;
 }
 
-void Gradebook::Set_Max_Assignment_Grade(double value) {}
+// Return the student's cumulative grade for all graded exams
+double Gradebook::Get_Exam_Grade() {
+    if (exams.size() == 0) {
+	return 100.0;
+    }
 
-double Gradebook::Get_Max_Assignment_Grade() {}
+    return (this->exam_grades_total / (MAX_EXAM_GRADE * exams.size())) * 100;
+}
 
-void Gradebook::Set_Max_Exam_Grade(double value) {}
+// Return the student's cumulative grade for all graded projects
+double Gradebook::Get_Projects_Grade() {
+    if (projects.size() == 0) {
+	return 100.0;
+    }
 
-double Gradebook::Get_Max_Exam_Grade() {}
+    return (this->project_grades_total / (MAX_PROJECT_GRADE * projects.size())) * 100;
+}
 
-void Gradebook::Set_Max_Projects_Grade(double value) {}
+double Gradebook::get_assignment_grade(std::string category, std::string name){
+    
+}
 
-double Gradebook::Get_Max_Projects_Grade() {}
+double Gradebook::get_category_grade(std::string category){}
 
-void Gradebook::getAssignmentGrade(std::string category, std::string name){}
+double Gradebook::get_total_grade(){}
 
-void Gradebook::getCategoryGrade(std::string category){}
-
-void Gradebook::getTotalGrade(){}
-
-void Gradebook::addGrade(std::string category,std::string name, double grade){}
+void Gradebook::add_grade(std::string category,std::string name, double grade){}
