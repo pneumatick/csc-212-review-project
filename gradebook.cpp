@@ -1,4 +1,8 @@
 #include "gradebook.h"
+#include <fstream>
+#include <sstream>
+#include <utility>
+#include <iostream>
 
 Gradebook::Gradebook(){
     this->assignment_grades_total = 0.0;
@@ -8,7 +12,44 @@ Gradebook::Gradebook(){
 }
 
 Gradebook::Gradebook(std::string inputFile){
-
+    std::ifstream read_file(inputFile);
+    std::string line;
+    std::string category;
+    std::string name;
+    double grade;
+    // Verify File opened
+    if (read_file.is_open()) {
+        // Tokenize input data
+        while (std::getline(read_file,line)) {
+            std::stringstream data_line(line);
+            data_line >> category >> name >> grade;
+            // Add element to respective category and add to total grade of category
+            if (category == LABS) {
+	            labs.push_back({name, grade});
+                this->lab_grades_total+= grade;
+            }
+            else if (category == ASSIGNMENTS) {
+   	            assignments.push_back({name, grade});
+                this->assignment_grades_total+= grade;
+            }
+            else if (category == PROJECTS) {
+	            projects.push_back({name, grade});
+                this->project_grades_total+= grade;
+            }
+            else if (category == EXAMS) {
+	            exams.push_back({name, grade});
+                this->exam_grades_total+= grade;
+            } else {
+                std::cout << "Categroy not found for: " << category << ' ' << name << ' ' << grade << std::endl;
+            }
+        }
+    } else {
+        std::cout << "Unable to open file." << std::endl;
+        this->assignment_grades_total = 0.0;
+        this->exam_grades_total = 0.0;
+        this->lab_grades_total = 0.0;
+        this->project_grades_total = 0.0;    
+    }
 }
 
 // Return the student's cumulative grade for all graded labs as a percentage
@@ -80,8 +121,24 @@ double Gradebook::get_assignment_grade(std::string category, std::string name){
     return grade;
 }
 
-// Is this redundant? If not, what does it do that the previous getters don't?
+
+// Returns the grade of a category as a percentage
 double Gradebook::get_category_grade(std::string category){
+    if (category == LABS) {
+        return this->Get_Lab_Grade();
+    }
+    else if (category == ASSIGNMENTS) {
+        return this->Get_Assignment_Grade();
+    }
+    else if (category == PROJECTS) {
+        return this->Get_Projects_Grade();
+    }
+    else if (category == EXAMS) {
+        return this->Get_Exam_Grade();
+    }
+    else {
+	    return -1.0;
+    }
     return 0;
 }
 
