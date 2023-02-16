@@ -1,10 +1,11 @@
 #include <iostream>
 #include "gradebook.h"
 
-int main() {
+int main(int argc, char*argv[]) {
     bool exit = false;
     std::string value;
-    Gradebook grades;
+    // Create a gradebook with data from a text file
+    Gradebook grades(argv[1]);
 
     while(!exit){
         std::cout<<"Input the number for the menu choice you want executed: "<<std::endl;
@@ -33,7 +34,7 @@ int main() {
             std::cout << "Input the name of the category you want the total grade for:" << std::endl;
             std::cin >> opt2_c;
 
-            grades.get_category_grade(opt2_c);
+            std::cout << grades.get_category_grade(opt2_c) << '%' << std::endl;
         }
         else if (value == "3"){
             grades.get_total_grade();

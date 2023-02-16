@@ -3,19 +3,19 @@
 
 #include <iostream>
 #include <vector>
+#include <fstream>
 
 // Category name constants
-const std::string LABS = "labs";
-const std::string ASSIGNMENTS = "assignments";
-const std::string PROJECTS = "projects";
-const std::string EXAMS = "exams";
+const std::string LABS = "lab";
+const std::string ASSIGNMENTS = "assignment";
+const std::string PROJECTS = "project";
+const std::string EXAMS = "exam";
 
-// I haven't checked to see what the maximum points available for each 
-// category are yet, so I'm just setting them to 1 as a placeholder.
-const double MAX_LAB_GRADE = 1.0;
-const double MAX_ASSIGNMENT_GRADE = 1.0;
-const double MAX_PROJECT_GRADE = 1.0;
-const double MAX_EXAM_GRADE = 1.0;
+// Category maximum total value constants
+const double MAX_LAB_GRADE = 20.0;
+const double MAX_ASSIGNMENT_GRADE = 50.0;
+const double MAX_PROJECT_GRADE = 250.0; // Temporary project grade value until we deal with projects having different possible grades
+const double MAX_EXAM_GRADE = 100.0;
 
 class Gradebook{
 
@@ -34,6 +34,7 @@ private:
 
 public:
     Gradebook();
+    // Creates a gradebook with data from a text file
     Gradebook(std::string inputFile);
     double Get_Lab_Grade();
     double Get_Assignment_Grade();
