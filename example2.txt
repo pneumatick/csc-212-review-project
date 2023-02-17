@@ -1,0 +1,8 @@
+lab 1 0
+lab 2 20
+lab 4 15.75
+lab 3 10
+assignment 1 45
+assignment 2 0
+project 1 155
+project 3 0
