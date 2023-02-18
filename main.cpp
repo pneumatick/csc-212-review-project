@@ -17,8 +17,7 @@ int main(int argc, char*argv[]) {
 
         std::cin>>value;
 
-        if(value == "1"){
-            //Figured this format for these variables is simple enough, option# then category (c) or name (n)
+        if(value == "1"){   // Grade for single assignment
             std::string opt1_c;
             std::cout << "Input the category of the assignment you are looking for:" << std::endl;
             std::cin >> opt1_c;
@@ -27,19 +26,20 @@ int main(int argc, char*argv[]) {
             std::cout << "Input the name of the assignment:" << std::endl;
             std::cin >> opt1_n;
 
-            grades.get_assignment_grade(opt1_c, opt1_n);
+            std::cout << "Grade for assignment " << opt1_n << " in category " << opt1_c << ":\n"
+                                     << grades.get_assignment_grade(opt1_c, opt1_n) << "%\n\n";
         }
-        else if(value == "2"){
+        else if(value == "2"){  // Grade for entire category
             std::string opt2_c;
             std::cout << "Input the name of the category you want the total grade for:" << std::endl;
             std::cin >> opt2_c;
 
-            std::cout << grades.get_category_grade(opt2_c) << '%' << std::endl;
+            std::cout << "Grade for category " << opt2_c << ":\n" << grades.get_category_grade(opt2_c) << "%\n\n";
         }
-        else if (value == "3"){
-            grades.get_total_grade();
+        else if (value == "3"){ // Grade for overall course
+            std::cout << "Overall course grade:\n" << grades.get_total_grade() << "\n\n";
         }
-        else if(value == "4"){
+        else if(value == "4"){  // Add new grade to gradebook
             std::string opt4_c;
             std::string opt4_n;
             std::string opt4_g;
@@ -55,10 +55,10 @@ int main(int argc, char*argv[]) {
 
             grades.add_grade(opt4_c, opt4_n, std::stod(opt4_g));
         }
-        else if(value == "5"){
+        else if(value == "5"){  // Exit program
             exit = true;
         }
-        else{
+        else{   // Invalid user input
            std::cout<<"Invalid input try again" <<std::endl;
         }
 
