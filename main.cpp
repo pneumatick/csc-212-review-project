@@ -29,14 +29,14 @@ int main(int argc, char*argv[]) {
             std::cout << "Input the name of the assignment:" << std::endl;
             std::cin >> user_input_name;
 
-            std::cout << "Grade for assignment " << user_input_name << " in category " << user_input_category << ":\n"
-                                     << grades.get_assignment_grade(user_input_category, user_input_name) << "%\n\n";
+            std::cout << "Points achieved for assignment \"" << user_input_name << "\" in category \"" << user_input_category << "\":\n"
+                                     << grades.get_assignment_grade(user_input_category, user_input_name) << "\n\n";
         }
         else if(value == "2"){  // Grade for entire category
             std::cout << "Input the name of the category you want the total grade for:" << std::endl;
             std::cin >> user_input_category;
 
-            std::cout << "Grade for category " << user_input_category << ":\n" << grades.get_category_grade(user_input_category) << "%\n\n";
+            std::cout << "Grade for category \"" << user_input_category << "\":\n" << grades.get_category_grade(user_input_category) << "%\n\n";
         }
         else if (value == "3"){ // Grade for overall course
             std::cout << "Overall course grade:\n" << grades.get_total_grade() << "\n\n";
