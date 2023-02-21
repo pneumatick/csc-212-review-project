@@ -25,19 +25,19 @@ Gradebook::Gradebook(std::string inputFile){
             data_line >> category >> name >> grade;
             // Add element to respective category and add to total grade of category
             if (category == LABS) {
-	            labs.push_back({name, grade});
+                labs.push_back({name, grade});
                 this->lab_grades_total+= grade;
             }
             else if (category == ASSIGNMENTS) {
-   	            assignments.push_back({name, grade});
+                assignments.push_back({name, grade});
                 this->assignment_grades_total+= grade;
             }
             else if (category == PROJECTS) {
-	            projects.push_back({name, grade});
+                projects.push_back({name, grade});
                 this->project_grades_total+= grade;
             }
             else if (category == EXAMS) {
-	            exams.push_back({name, grade});
+                exams.push_back({name, grade});
                 this->exam_grades_total+= grade;
             } else {
                 std::cout << "Categroy not found for: " << category << ' ' << name << ' ' << grade << std::endl;
@@ -48,7 +48,7 @@ Gradebook::Gradebook(std::string inputFile){
         this->assignment_grades_total = 0.0;
         this->exam_grades_total = 0.0;
         this->lab_grades_total = 0.0;
-        this->project_grades_total = 0.0;    
+        this->project_grades_total = 0.0;
     }
 
     read_file.close();
@@ -57,17 +57,17 @@ Gradebook::Gradebook(std::string inputFile){
 // Return the student's cumulative grade for all graded labs as a percentage
 double Gradebook::Get_Lab_Grade() {
     if (labs.size() == 0) {
-	return 100.0;
+        return 100.0;
     }
 
     return (this->lab_grades_total / (MAX_LAB_GRADE * labs.size())) * 100;
 }
 
-// Return the student's cumulative grade for all graded assignments as a 
+// Return the student's cumulative grade for all graded assignments as a
 // percentage
 double Gradebook::Get_Assignment_Grade() {
     if (assignments.size() == 0) {
-	return 100.0;
+        return 100.0;
     }
 
     return (this->assignment_grades_total / (MAX_ASSIGNMENT_GRADE * assignments.size())) * 100;
@@ -76,17 +76,17 @@ double Gradebook::Get_Assignment_Grade() {
 // Return the student's cumulative grade for all graded exams as a percentage
 double Gradebook::Get_Exam_Grade() {
     if (exams.size() == 0) {
-	return 100.0;
+        return 100.0;
     }
 
     return (this->exam_grades_total / (MAX_EXAM_GRADE * exams.size())) * 100;
 }
 
-// Return the student's cumulative grade for all graded projects as a 
+// Return the student's cumulative grade for all graded projects as a
 // percentage
 double Gradebook::Get_Projects_Grade() {
     if (projects.size() == 0) {
-	return 100.0;
+        return 100.0;
     }
 
     return (this->project_grades_total / (MAX_PROJECT_GRADE * projects.size())) * 100;
@@ -99,25 +99,25 @@ double Gradebook::get_assignment_grade(std::string category, std::string name){
     std::vector<std::pair<std::string, double>> category_vector;
 
     if (category == LABS) {
-	category_vector = this->labs;
+        category_vector = this->labs;
     }
     else if (category == ASSIGNMENTS) {
-   	category_vector = this->assignments; 
+        category_vector = this->assignments;
     }
     else if (category == PROJECTS) {
-	category_vector = this->projects;
+        category_vector = this->projects;
     }
     else if (category == EXAMS) {
-	category_vector = this->exams;
+        category_vector = this->exams;
     }
     else {
-	return -1.0;
+        return -1.0;
     }
 
     for (long unsigned int i = 0; i < category_vector.size(); i++) {
-	if (category_vector[i].first == name) {
-	    grade = category_vector[i].second;
-	}
+        if (category_vector[i].first == name) {
+            grade = category_vector[i].second;
+        }
     }
 
     return grade;
@@ -139,7 +139,7 @@ double Gradebook::get_category_grade(std::string category){
         return this->Get_Exam_Grade();
     }
     else {
-	return -1.0;
+        return -1.0;
     }
     return 0;
 }
@@ -154,6 +154,58 @@ double Gradebook::get_total_grade(){
 
 // Manually add a new grade to the respective category
 void Gradebook::add_grade(std::string category,std::string name, double grade){
+    if(category == LABS){
+        for(int i = 0; i < labs.size();i++){
+            if(std::stod(name) < std::stod(labs[i].first)){
+                labs.insert(labs.begin()+i,{name,grade});
+                i = labs.size();
+            }
+            else if(i == labs.size()-1){
+                labs.push_back({name,grade});
+                i = labs.size();
+            }
+        }
+        this->lab_grades_total += grade;
+    }
+    else if(category == ASSIGNMENTS){
+        for(int i = 0; i < assignments.size();i++){
+            if(std::stod(name) < std::stod(assignments[i].first)){
+                assignments.insert(assignments.begin()+i,{name,grade});
+                i = assignments.size();
+            }
+            else if(i == assignments.size()-1){
+                assignments.push_back({name,grade});
+                i = assignments.size();
+            }
+        }
+        this->assignment_grades_total+= grade;
+    }
+    else if(category == PROJECTS){
+        for(int i = 0; i < projects.size();i++){
+            if(std::stod(name) < std::stod(projects[i].first)){
+                projects.insert(projects.begin()+i,{name,grade});
+                i = projects.size();
+            }
+            else if(i == projects.size()-1){
+                projects.push_back({name,grade});
+                i = projects.size();
+            }
+        }
+        this->project_grades_total += grade;
+    }
+    else if(category == EXAMS){
+        for(int i = 0; i < exams.size();i++){
+            if(std::stod(name) < std::stod(exams[i].first)){
+                exams.insert(exams.begin()+i,{name,grade});
+                i = projects.size();
+            }
+            else if(i == exams.size()-1){
+                exams.push_back({name,grade});
+                i = projects.size();
+            }
+        }
+        this->exam_grades_total += grade;
+    }
 
 }
 
@@ -164,31 +216,31 @@ void Gradebook::close(std::string filename){
 
     // Ensure the file has opened. Return if false.
     if (!file.is_open()) {
-	std::cout << "Error opening file!" << std::endl;
-	return;
+        std::cout << "Error opening file!" << std::endl;
+        return;
     }
 
     // Labs
     for (unsigned long int i = 0; i < this->labs.size(); i++) {
-	file << "lab " << this->labs[i].first << " " << this->labs[i].second << "\n";
+        file << "lab " << this->labs[i].first << " " << this->labs[i].second << "\n";
     }
 
     // Assignments
     for (unsigned long int i = 0; i < this->assignments.size(); i++) {
-	file << "assignment " << this->assignments[i].first << " " 
-	     << this->assignments[i].second << "\n";
+        file << "assignment " << this->assignments[i].first << " "
+             << this->assignments[i].second << "\n";
     }
-    
+
     // Projects
     for (unsigned long int i = 0; i < this->projects.size(); i++) {
-	file << "project " << this->projects[i].first << " " 
-	     << this->projects[i].second << "\n";
+        file << "project " << this->projects[i].first << " "
+             << this->projects[i].second << "\n";
     }
 
     // Exams
     for (unsigned long int i = 0; i < this->exams.size(); i++) {
-	file << "exam " << this->exams[i].first << " " << this->exams[i].second 
-	     << "\n";
+        file << "exam " << this->exams[i].first << " " << this->exams[i].second
+             << "\n";
     }
 
     file.close();
