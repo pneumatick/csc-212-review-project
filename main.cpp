@@ -21,8 +21,8 @@ int main(int argc, char*argv[]) {
 	    grades = Gradebook(filename);
 	    break;
 	default:
-	    std::cout << "Unexpected number of args: Requires none (new gradebook)"
-		<< " or one input file name (existing gradebook)" << std::endl;
+	    std::cout << "Unexpected number of args: Requires none (create a new gradebook)"
+		<< " or one input file name (such as \"grades.txt\")" << std::endl;
 	    return 1;
     }
 
@@ -39,6 +39,8 @@ int main(int argc, char*argv[]) {
 
         // Handle menu options
         if (value == "1") {   // Grade for single assignment
+	    double grade;
+
             std::cout << "\nInput the category of the assignment you are "
 		<< "looking for (lab, assignment, exam, project): ";
             std::cin >> user_input_category;
@@ -46,18 +48,31 @@ int main(int argc, char*argv[]) {
             std::cout << "\nInput the name of the assignment: ";
             std::cin >> user_input_name;
 
-            std::cout << "\nPoints achieved for assignment \"" 
-		<< user_input_name << "\" in category \"" << user_input_category << "\": " 
-		<< grades.get_assignment_grade(user_input_category, user_input_name) 
-		<< "\n\n";
+	    grade = grades.get_assignment_grade(user_input_category, user_input_name);
+	    if (grade > 0) {
+                std::cout << "\nPoints achieved for assignment \"" 
+	            << user_input_name << "\" in category \"" << user_input_category 
+		    << "\": " << grade << "\n\n";
+	    }
+	    else {
+	        std::cout << "\nCategory or assignment name not found...\n" << std::endl;
+	    }
         }
         else if (value == "2") {  // Grade for entire category
+	    double grade;
+
             std::cout << "\nInput the name of the category you want the total "
 		<< "grade for (lab, assignment, exam, project): ";
             std::cin >> user_input_category;
 
-            std::cout << "\nGrade for category \"" << user_input_category << "\": " 
-		<< grades.get_category_grade(user_input_category) << "%\n\n";
+	    grade = grades.get_category_grade(user_input_category);
+	    if (grade > 0) {
+                std::cout << "\nGrade for category \"" << user_input_category 
+		    << "\": " << grade << "%\n\n";
+	    }
+	    else {
+		std::cout << "\nCategory name not found...\n" << std::endl;
+	    }
         }
         else if (value == "3") { // Grade for overall course
             std::cout << "\nOverall course grade: " << grades.get_total_grade() << "%\n\n";
@@ -66,6 +81,16 @@ int main(int argc, char*argv[]) {
             std::cout << "\nInput the name of the category for the "
 		<< "assignment you're adding (lab, assignment, exam, project): ";
             std::cin >> user_input_category;
+
+	    // Esnure that the entered category is valid
+	    if (!(user_input_category == LABS || 
+		user_input_category == ASSIGNMENTS ||
+		user_input_category == PROJECTS ||
+		user_input_category == EXAMS)) {
+		std::cout << "\nInvalid category name: " 
+		    << "Expected lab, assignment, project, or exam\n" << std::endl;
+		continue;
+	    }
 
             std::cout << "\nInput the name of the assignment you're adding: ";
             std::cin >> user_input_name;
@@ -81,6 +106,7 @@ int main(int argc, char*argv[]) {
         else if (value == "5") {  // Exit program, update grades file
             exit = true;
             grades.close(filename);
+	    std::cout << "\nGrades saved in file \"" << filename << "\"" << std::endl;
         }
         else {   // Invalid user input
            std::cout << "Invalid input: Try again" << std::endl;

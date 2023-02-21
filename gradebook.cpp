@@ -168,20 +168,27 @@ void Gradebook::close(std::string filename){
 	return;
     }
 
+    // Labs
     for (unsigned long int i = 0; i < this->labs.size(); i++) {
 	file << "lab " << this->labs[i].first << " " << this->labs[i].second << "\n";
     }
 
+    // Assignments
     for (unsigned long int i = 0; i < this->assignments.size(); i++) {
-	file << "assignment " << this->assignments[i].first << " " << this->assignments[i].second << "\n";
+	file << "assignment " << this->assignments[i].first << " " 
+	     << this->assignments[i].second << "\n";
     }
     
+    // Projects
     for (unsigned long int i = 0; i < this->projects.size(); i++) {
-	file << "project " << this->projects[i].first << " " << this->projects[i].second << "\n";
+	file << "project " << this->projects[i].first << " " 
+	     << this->projects[i].second << "\n";
     }
 
+    // Exams
     for (unsigned long int i = 0; i < this->exams.size(); i++) {
-	file << "exam " << this->exams[i].first << " " << this->exams[i].second << "\n";
+	file << "exam " << this->exams[i].first << " " << this->exams[i].second 
+	     << "\n";
     }
 
     file.close();
