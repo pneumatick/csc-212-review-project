@@ -54,6 +54,7 @@ int main(int argc, char*argv[]) {
         }
         else if(value == "5"){  // Exit program
             exit = true;
+            grades.close();
         }
         else{   // Invalid user input
            std::cout<<"Invalid input try again" <<std::endl;
