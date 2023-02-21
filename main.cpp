@@ -39,7 +39,8 @@ int main(int argc, char*argv[]) {
 
         // Handle menu options
         if (value == "1") {   // Grade for single assignment
-            std::cout << "\nInput the category of the assignment you are looking for: ";
+            std::cout << "\nInput the category of the assignment you are "
+		<< "looking for (lab, assignment, exam, project): ";
             std::cin >> user_input_category;
 
             std::cout << "\nInput the name of the assignment: ";
@@ -51,7 +52,8 @@ int main(int argc, char*argv[]) {
 		<< "\n\n";
         }
         else if (value == "2") {  // Grade for entire category
-            std::cout << "\nInput the name of the category you want the total grade for: ";
+            std::cout << "\nInput the name of the category you want the total "
+		<< "grade for (lab, assignment, exam, project): ";
             std::cin >> user_input_category;
 
             std::cout << "\nGrade for category \"" << user_input_category << "\": " 
@@ -61,7 +63,8 @@ int main(int argc, char*argv[]) {
             std::cout << "\nOverall course grade: " << grades.get_total_grade() << "%\n\n";
         }
         else if (value == "4") {  // Add new grade to gradebook
-            std::cout << "\nInput the name of the category for the assignment you're adding: ";
+            std::cout << "\nInput the name of the category for the "
+		<< "assignment you're adding (lab, assignment, exam, project): ";
             std::cin >> user_input_category;
 
             std::cout << "\nInput the name of the assignment you're adding: ";
