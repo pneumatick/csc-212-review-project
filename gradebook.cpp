@@ -50,6 +50,8 @@ Gradebook::Gradebook(std::string inputFile){
         this->lab_grades_total = 0.0;
         this->project_grades_total = 0.0;    
     }
+
+    read_file.close();
 }
 
 // Return the student's cumulative grade for all graded labs as a percentage
@@ -137,7 +139,7 @@ double Gradebook::get_category_grade(std::string category){
         return this->Get_Exam_Grade();
     }
     else {
-	    return -1.0;
+	return -1.0;
     }
     return 0;
 }
@@ -155,6 +157,34 @@ void Gradebook::add_grade(std::string category,std::string name, double grade){
 
 }
 
+// Create/update the grades file upon termination of the program
 void Gradebook::close(std::string filename){
-    //Will include line to close file upon choosing final option in main. Otherwise our file never closes.
+    std::ofstream file;
+    file.open(filename);
+
+    // Ensure the file has opened. Return if false.
+    if (!file.is_open()) {
+	std::cout << "Error opening file!" << std::endl;
+	return;
+    }
+
+    for (unsigned long int i = 0; i < this->labs.size(); i++) {
+	file << "lab " << this->labs[i].first << " " << this->labs[i].second << "\n";
+    }
+
+    for (unsigned long int i = 0; i < this->assignments.size(); i++) {
+	file << "assignment " << this->assignments[i].first << " " << this->assignments[i].second << "\n";
+    }
+    
+    for (unsigned long int i = 0; i < this->projects.size(); i++) {
+	file << "project " << this->projects[i].first << " " << this->projects[i].second << "\n";
+    }
+
+    for (unsigned long int i = 0; i < this->exams.size(); i++) {
+	file << "exam " << this->exams[i].first << " " << this->exams[i].second << "\n";
+    }
+
+    file.close();
+
+    return;
 }
