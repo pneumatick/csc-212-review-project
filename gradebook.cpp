@@ -12,7 +12,7 @@ Gradebook::Gradebook(){
 }
 
 Gradebook::Gradebook(std::string inputFile){
-    std::ifstream read_file(inputFile);
+    std::fstream read_file(inputFile);
     std::string line;
     std::string category;
     std::string name;
@@ -144,10 +144,17 @@ double Gradebook::get_category_grade(std::string category){
 
 // Return the total cumulative grade for the class as a percentage
 double Gradebook::get_total_grade(){
-    return 0;
+    double total_grade = 0;
+    //Multiplies each category total by its value in regards to the final grade (ex: assignments are 20%).
+    total_grade = (Get_Assignment_Grade() * 0.2) + (Get_Exam_Grade() * 0.1) + (Get_Lab_Grade() * 0.2) + (Get_Projects_Grade() * 0.5);
+    return total_grade;
 }
 
 // Manually add a new grade to the respective category
 void Gradebook::add_grade(std::string category,std::string name, double grade){
 
+}
+
+void Gradebook::close(){
+    //Will include line to close file upon choosing final option in main. Otherwise our file never closes.
 }
