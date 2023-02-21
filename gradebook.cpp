@@ -155,6 +155,6 @@ void Gradebook::add_grade(std::string category,std::string name, double grade){
 
 }
 
-void Gradebook::close(){
+void Gradebook::close(std::string filename){
     //Will include line to close file upon choosing final option in main. Otherwise our file never closes.
 }

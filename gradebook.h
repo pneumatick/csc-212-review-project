@@ -44,7 +44,7 @@ public:
     double get_category_grade(std::string category);
     double get_total_grade();
     void add_grade(std::string category, std::string name, double grade);
-    void close();
+    void close(std::string filename);
 
 };
 
