@@ -207,6 +207,7 @@ void Gradebook::add_grade(std::string category,std::string name, double grade){
     if(category == LABS){
 	if (this->labs.size() == 0) {
 	    this->labs.push_back({name, grade});
+            this->lab_grades_total += grade;
 	    return;
 	}
         for(unsigned long int i = 0; i < this->labs.size();i++){
@@ -219,11 +220,12 @@ void Gradebook::add_grade(std::string category,std::string name, double grade){
                 i = this->labs.size();
             }
         }
-        this->lab_grades_total += grade;
+	this->lab_grades_total += grade;
     }
     else if(category == ASSIGNMENTS){
 	if (this->assignments.size() == 0) {
 	    this->assignments.push_back({name, grade});
+            this->assignment_grades_total += grade;
 	    return;
 	}
         for(unsigned long int i = 0; i < this->assignments.size();i++){
@@ -241,6 +243,7 @@ void Gradebook::add_grade(std::string category,std::string name, double grade){
     else if(category == PROJECTS){
 	if (this->projects.size() == 0) {
 	    this->projects.push_back({name, grade});
+            this->project_grades_total += grade;
 	    return;
 	}
         for(unsigned long int i = 0; i < this->projects.size();i++){
@@ -258,6 +261,7 @@ void Gradebook::add_grade(std::string category,std::string name, double grade){
     else if(category == EXAMS){
 	if (this->exams.size() == 0) {
 	    this->exams.push_back({name, grade});
+	    this->exam_grades_total += grade;
 	    return;
 	}
         for(unsigned long int i = 0; i < this->exams.size();i++){
