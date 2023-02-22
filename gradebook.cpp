@@ -92,6 +92,32 @@ double Gradebook::Get_Projects_Grade() {
     return (this->project_grades_total / (MAX_PROJECT_GRADE * projects.size())) * 100;
 }
 
+void Gradebook::output_category_grades(std::string category) { 
+    std::vector<std::pair<std::string, double>> category_vector;
+
+    if (category == LABS) {
+        category_vector = this->labs;
+    }
+    else if (category == ASSIGNMENTS) {
+        category_vector = this->assignments;
+    }
+    else if (category == PROJECTS) {
+        category_vector = this->projects;
+    }
+    else if (category == EXAMS) {
+        category_vector = this->exams;
+    }
+    else {
+	return;
+    }
+
+    std::cout << "\nAll " << category << "s:" << std::endl;
+    for (unsigned long int i = 0; i < category_vector.size(); i++) {
+	std::cout << category << " " << category_vector[i].first 
+	    << " " << category_vector[i].second << std::endl;
+    }
+}
+
 // Return the grade of a specific assignment.
 // Returns -1.0 if the category or assignment isn't found.
 double Gradebook::get_assignment_grade(std::string category, std::string name){
@@ -126,6 +152,8 @@ double Gradebook::get_assignment_grade(std::string category, std::string name){
 
 // Returns the grade of a category as a percentage
 double Gradebook::get_category_grade(std::string category){
+    this->output_category_grades(category);
+
     if (category == LABS) {
         return this->Get_Lab_Grade();
     }
@@ -144,6 +172,17 @@ double Gradebook::get_category_grade(std::string category){
     return 0;
 }
 
+// Output all grades for every category, and return the cumulative grade
+// for the class as a percentage.
+void Gradebook::get_all_grades() {
+    this->output_category_grades("lab");
+    this->output_category_grades("assignment");
+    this->output_category_grades("project");
+    this->output_category_grades("exam");
+    std::cout << "\nOverall course grade: " << this->get_total_grade() 
+	<< "%\n" << std::endl;
+}
+
 // Return the total cumulative grade for the class as a percentage
 double Gradebook::get_total_grade(){
     double total_grade = 0;
@@ -155,53 +194,69 @@ double Gradebook::get_total_grade(){
 // Manually add a new grade to the respective category
 void Gradebook::add_grade(std::string category,std::string name, double grade){
     if(category == LABS){
-        for(int i = 0; i < labs.size();i++){
-            if(std::stod(name) < std::stod(labs[i].first)){
-                labs.insert(labs.begin()+i,{name,grade});
-                i = labs.size();
+	if (this->labs.size() == 0) {
+	    this->labs.push_back({name, grade});
+	    return;
+	}
+        for(unsigned long int i = 0; i < this->labs.size();i++){
+            if(std::stod(name) < std::stod(this->labs[i].first)){
+                this->labs.insert(this->labs.begin()+i,{name,grade});
+                i = this->labs.size();
             }
-            else if(i == labs.size()-1){
-                labs.push_back({name,grade});
-                i = labs.size();
+            else if(i == this->labs.size()-1){
+                this->labs.push_back({name,grade});
+                i = this->labs.size();
             }
         }
         this->lab_grades_total += grade;
     }
     else if(category == ASSIGNMENTS){
-        for(int i = 0; i < assignments.size();i++){
-            if(std::stod(name) < std::stod(assignments[i].first)){
-                assignments.insert(assignments.begin()+i,{name,grade});
-                i = assignments.size();
+	if (this->assignments.size() == 0) {
+	    this->assignments.push_back({name, grade});
+	    return;
+	}
+        for(unsigned long int i = 0; i < this->assignments.size();i++){
+            if(std::stod(name) < std::stod(this->assignments[i].first)){
+                this->assignments.insert(this->assignments.begin()+i,{name,grade});
+                i = this->assignments.size();
             }
-            else if(i == assignments.size()-1){
-                assignments.push_back({name,grade});
-                i = assignments.size();
+            else if(i == this->assignments.size()-1){
+                this->assignments.push_back({name,grade});
+                i = this->assignments.size();
             }
         }
         this->assignment_grades_total+= grade;
     }
     else if(category == PROJECTS){
-        for(int i = 0; i < projects.size();i++){
-            if(std::stod(name) < std::stod(projects[i].first)){
-                projects.insert(projects.begin()+i,{name,grade});
-                i = projects.size();
+	if (this->projects.size() == 0) {
+	    this->projects.push_back({name, grade});
+	    return;
+	}
+        for(unsigned long int i = 0; i < this->projects.size();i++){
+            if(std::stod(name) < std::stod(this->projects[i].first)){
+                this->projects.insert(this->projects.begin()+i,{name,grade});
+                i = this->projects.size();
             }
-            else if(i == projects.size()-1){
-                projects.push_back({name,grade});
-                i = projects.size();
+            else if(i == this->projects.size()-1){
+                this->projects.push_back({name,grade});
+                i = this->projects.size();
             }
         }
         this->project_grades_total += grade;
     }
     else if(category == EXAMS){
-        for(int i = 0; i < exams.size();i++){
-            if(std::stod(name) < std::stod(exams[i].first)){
-                exams.insert(exams.begin()+i,{name,grade});
-                i = projects.size();
+	if (this->exams.size() == 0) {
+	    this->exams.push_back({name, grade});
+	    return;
+	}
+        for(unsigned long int i = 0; i < this->exams.size();i++){
+            if(std::stod(name) < std::stod(this->exams[i].first)){
+                this->exams.insert(this->exams.begin()+i,{name,grade});
+                i = this->exams.size();
             }
-            else if(i == exams.size()-1){
-                exams.push_back({name,grade});
-                i = projects.size();
+            else if(i == this->exams.size()-1){
+                this->exams.push_back({name,grade});
+                i = this->exams.size();
             }
         }
         this->exam_grades_total += grade;

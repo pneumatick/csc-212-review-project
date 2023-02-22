@@ -40,8 +40,10 @@ public:
     double Get_Assignment_Grade();
     double Get_Projects_Grade();
     double Get_Exam_Grade();
+    void output_category_grades(std::string category);
     double get_assignment_grade(std::string category, std::string name);
     double get_category_grade(std::string category);
+    void get_all_grades();
     double get_total_grade();
     void add_grade(std::string category, std::string name, double grade);
     void close(std::string filename);
