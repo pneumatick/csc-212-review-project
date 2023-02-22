@@ -45,6 +45,7 @@ public:
     double get_assignment_grade(std::string category, std::string name);
     double get_category_grade(std::string category);
     void get_all_grades();
+    void get_all_totals();
     double get_total_grade();
     void add_grade(std::string category, std::string name, double grade);
     void close(std::string filename);

@@ -172,7 +172,7 @@ double Gradebook::get_category_grade(std::string category){
     return 0;
 }
 
-// Output all grades for every category, and return the cumulative grade
+// Output all grades for every category and the cumulative grade
 // for the class as a percentage.
 void Gradebook::get_all_grades() {
     this->output_category_grades("lab");
@@ -181,6 +181,16 @@ void Gradebook::get_all_grades() {
     this->output_category_grades("exam");
     std::cout << "\nOverall course grade: " << this->get_total_grade() 
 	<< "%\n" << std::endl;
+}
+
+// Output the total grades for all categories and the cumulative grade 
+// for the class as a percentage.
+void Gradebook::get_all_totals() {
+    std::cout << "Labs: " << this->Get_Lab_Grade() << "%" << std::endl;
+    std::cout << "Assignments: " << this->Get_Assignment_Grade() << "%" << std::endl;
+    std::cout << "Projects: " << this->Get_Projects_Grade() << "%" << std::endl;
+    std::cout << "Exams: " << this->Get_Exam_Grade() << "%" << std::endl;
+    std::cout << "Ovarall course grade: " << this->get_total_grade() << "%\n" << std::endl;
 }
 
 // Return the total cumulative grade for the class as a percentage
