@@ -92,6 +92,7 @@ double Gradebook::Get_Projects_Grade() {
     return (this->project_grades_total / (MAX_PROJECT_GRADE_1 + MAX_PROJECT_GRADE_2)) * 100;
 }
 
+// Output all grades for the given category
 void Gradebook::output_category_grades(std::string category) { 
     std::vector<std::pair<std::string, double>> category_vector;
 
