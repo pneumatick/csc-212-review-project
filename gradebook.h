@@ -14,7 +14,8 @@ const std::string EXAMS = "exam";
 // Category maximum total value constants
 const double MAX_LAB_GRADE = 20.0;
 const double MAX_ASSIGNMENT_GRADE = 50.0;
-const double MAX_PROJECT_GRADE = 250.0; // Temporary project grade value until we deal with projects having different possible grades
+const double MAX_PROJECT_GRADE_1 = 150.0;
+const double MAX_PROJECT_GRADE_2 = 350.0; 
 const double MAX_EXAM_GRADE = 100.0;
 
 class Gradebook{

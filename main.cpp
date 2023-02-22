@@ -67,8 +67,8 @@ int main(int argc, char*argv[]) {
 
 	    grade = grades.get_category_grade(user_input_category);
 	    if (grade > 0) {
-                std::cout << "\nGrade for category \"" << user_input_category 
-		    << "\": " << grade << "%\n\n";
+                std::cout << "\nTotal grade for category \"" 
+		    << user_input_category << "\": " << grade << "%\n\n";
 	    }
 	    else {
 		std::cout << "\nCategory name not found...\n" << std::endl;
