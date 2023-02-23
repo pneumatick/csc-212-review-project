@@ -1,0 +1,12 @@
+lab 1 1
+exam 1 100
+lab 3 15
+assignment 4 11
+lab 5 19
+assignment 1 34
+assignment 2 49
+assignment 3 40
+lab 2 13
+project 1 199
+project 2 222
+lab 4 20
