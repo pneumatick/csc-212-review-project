@@ -104,9 +104,22 @@ int main(int argc, char*argv[]) {
 		+ " with a grade of " + user_input_grade + " added!\n" << std::endl;
         }
         else if (value == "5") {  // Exit program, update grades file
+            
+            std::cout << "\nWould you like to save this gradebook?\nY/N\n";
+            char user_response;
+            std::cin >> user_response;
+            if (toupper(user_response) == 'Y') {
+                std::cout << "\nWould you like to overwrite \"" << filename << "\"?\nY/N\n";
+                std::cin >> user_response;
+                if (toupper(user_response) == 'N') {
+                    std::cout << "\nPlease input a file name using the following format:\nyour_file_name.txt\nEnter file name here:\n";
+                    std::cin >> filename;
+                }
+
+                grades.close(filename);
+                std::cout << "\nGrades saved in file \"" << filename << "\"" << std::endl;
+            }
             exit = true;
-            grades.close(filename);
-	    std::cout << "\nGrades saved in file \"" << filename << "\"" << std::endl;
         }
         else {   // Invalid user input
            std::cout << "Invalid input: Try again" << std::endl;
