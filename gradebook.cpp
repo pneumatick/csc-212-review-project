@@ -111,12 +111,6 @@ void Gradebook::output_category_grades(std::string category) {
     else {
 	return;
     }
-
-    std::cout << "\nAll " << category << "s:" << std::endl;
-    for (unsigned long int i = 0; i < category_vector.size(); i++) {
-	std::cout << category << " " << category_vector[i].first 
-	    << " " << category_vector[i].second << std::endl;
-    }
 }
 
 // Outputs a list of all elements in a category and their points achieved.

@@ -28,7 +28,7 @@ int main(int argc, char*argv[]) {
 
     while (!exit) {
         // Main menu
-        std::cout << "Input the number for the menu choice you want executed: " << std::endl;
+        std::cout << "\nInput the number for the menu choice you want executed: " << std::endl;
         std::cout << "1. Get the grade from a specific assignment." << std::endl;
         std::cout << "2. Get the grade for a specific group of assignments " << std::endl;
         std::cout << "3. Get your total grade. " << std::endl;
@@ -78,7 +78,53 @@ int main(int argc, char*argv[]) {
 	    }
         }
         else if (value == "3") { // Grade for overall course
-            std::cout << "\nOverall course grade: " << grades.get_total_grade() << "%\n\n";
+
+            while(true) {
+                std::cout << "\nInput the number for the menu choice you want executed: " << std::endl;
+                std::cout << "1. All grades, category totals, and overall course grade." << std::endl;
+                std::cout << "2. Category totals and overall course grade." << std::endl;
+                std::cout << "3. Overall course grade only." << std::endl;
+                std::cout << "4. Return to main menu." << std::endl;
+                std::cin >> value;
+
+
+                // All Grades
+                if (value == "1") {
+                    std::cout << "\nOverall course grade: " << grades.get_total_grade() << "%\n\n";
+                    // Category overviews
+                    // Labs
+                    std::cout << "\nTotal grade for category \"lab\": " << grades.get_category_grade("lab") << "%\n\nCategory overview:\n";
+                    grades.output_category_overview("lab");
+                    // Assignments
+                    std::cout << "\nTotal grade for category \"assignment\": " << grades.get_category_grade("assignment") << "%\n\nCategory overview:\n";
+                    grades.output_category_overview("assignment");
+                    // Projects
+                    std::cout << "\nTotal grade for category \"project\": " << grades.get_category_grade("project") << "%\n\nCategory overview:\n";
+                    grades.output_category_overview("project");      
+                    //Exams
+                    std::cout << "\nTotal grade for category \"exam\": " << grades.get_category_grade("exam") << "%\n\nCategory overview:\n";
+                    grades.output_category_overview("exam");
+                // Category Grades
+                } else if (value == "2") {
+                    std::cout << "\nOverall course grade: " << grades.get_total_grade() << "%\n\n";
+                    // Category Grades
+                    // Labs
+                    std::cout << "\nTotal grade for category \"lab\": " << grades.get_category_grade("lab") << std::endl;
+                    // Assignments
+                    std::cout << "\nTotal grade for category \"assignment\": " << grades.get_category_grade("assignment") << std::endl;
+                    // Projects
+                    std::cout << "\nTotal grade for category \"project\": " << grades.get_category_grade("project") << std::endl;
+                    // Exams
+                    std::cout << "\nTotal grade for category \"exam\": " << grades.get_category_grade("exam") << std::endl;
+                // Overall Grade Only  
+                } else if (value == "3") {
+                    std::cout << "\nOverall course grade: " << grades.get_total_grade() << "%\n\n";
+                } else if (value == "4") {
+                    break;
+                } else {   // Invalid user input
+                    std::cout << "Invalid input: Try again" << std::endl;
+                }
+            }
         }
         else if (value == "4") {  // Add new grade to gradebook
             std::cout << "\nInput the name of the category for the "
