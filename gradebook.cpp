@@ -191,27 +191,6 @@ double Gradebook::get_category_grade(std::string category){
     return 0;
 }
 
-// // Output all grades for every category and the cumulative grade
-// // for the class as a percentage.
-// void Gradebook::get_all_grades() {
-//     this->output_category_grades("lab");
-//     this->output_category_grades("assignment");
-//     this->output_category_grades("project");
-//     this->output_category_grades("exam");
-//     std::cout << "\nOverall course grade: " << this->get_total_grade() 
-// 	<< "%\n" << std::endl;
-// }
-
-// // Output the total grades for all categories and the cumulative grade 
-// // for the class as a percentage.
-// void Gradebook::get_all_totals() {
-//     std::cout << "Labs: " << this->Get_Lab_Grade() << "%" << std::endl;
-//     std::cout << "Assignments: " << this->Get_Assignment_Grade() << "%" << std::endl;
-//     std::cout << "Projects: " << this->Get_Projects_Grade() << "%" << std::endl;
-//     std::cout << "Exams: " << this->Get_Exam_Grade() << "%" << std::endl;
-//     std::cout << "Ovarall course grade: " << this->get_total_grade() << "%\n" << std::endl;
-// }
-
 // Return the total cumulative grade for the class as a percentage
 double Gradebook::get_total_grade(){
     double total_grade = 0;
@@ -318,6 +297,15 @@ void Gradebook::remove_grade(std::string category, std::string name){
     // Search for and remove grade element
     for (long unsigned int i = 0; i < category_vector->size(); i++) {
         if (category_vector->operator[](i).first == name) {
+            if (category == LABS) {
+                this->lab_grades_total-= category_vector->operator[](i).second;
+            } else if (category == ASSIGNMENTS) {
+                this->assignment_grades_total-= category_vector->operator[](i).second;
+            } else if (category == PROJECTS) {
+                this->project_grades_total-= category_vector->operator[](i).second;
+            } else if (category == EXAMS) {
+                this->exam_grades_total-= category_vector->operator[](i).second;
+            }
             category_vector->erase(category_vector->begin() + i);
             std::cout << "Grade succesffuly removed.";
             return;
@@ -349,6 +337,19 @@ void Gradebook::update_grade(std::string category, std::string name, double grad
     // Search for and update grade element
     for (long unsigned int i = 0; i < category_vector->size(); i++) {
         if (category_vector->operator[](i).first == name) {
+            if (category == LABS) {
+                this->lab_grades_total-= category_vector->operator[](i).second;
+                this->lab_grades_total+= grade;
+            } else if (category == ASSIGNMENTS) {
+                this->assignment_grades_total-= category_vector->operator[](i).second;
+                this->assignment_grades_total+= grade;
+            } else if (category == PROJECTS) {
+                this->project_grades_total-= category_vector->operator[](i).second;
+                this->project_grades_total+= grade;
+            } else if (category == EXAMS) {
+                this->exam_grades_total-= category_vector->operator[](i).second;
+                this->exam_grades_total+= grade;
+            }
             category_vector->operator[](i).second = grade;
             std::cout << "Grade succesffuly updated.";
             return;

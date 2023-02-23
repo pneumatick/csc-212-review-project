@@ -12,6 +12,6 @@ assignment 02 50
 assignment 03 40
 assignment 04 50
 assignment 05 35
-project Review 140
+project 1 140
 project 2 300
 exam Final 90
