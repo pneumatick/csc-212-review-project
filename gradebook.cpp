@@ -297,7 +297,7 @@ void Gradebook::add_grade(std::string category,std::string name, double grade){
 
 }
 
-bool Gradebook::remove_grade(std::string category, std::string name){
+void Gradebook::remove_grade(std::string category, std::string name){
     std::vector<std::pair<std::string, double>> *category_vector;
     // Find the category
     if (category == LABS) {
@@ -313,22 +313,50 @@ bool Gradebook::remove_grade(std::string category, std::string name){
         category_vector = &this->exams;
     } else {
         std::cout << "Category \"" << category << "\" not found.\n\n";
-        return false;
+        return;
     }
     // Search for and remove grade element
     for (long unsigned int i = 0; i < category_vector->size(); i++) {
         if (category_vector->operator[](i).first == name) {
             category_vector->erase(category_vector->begin() + i);
-            return true;
+            std::cout << "Grade succesffuly removed.";
+            return;
         }
     }
 
     std::cout << "\""<< category << " " << name << "\" not found.\n\n";
-    return false;
+    return;
 }
 
 void Gradebook::update_grade(std::string category, std::string name, double grade){
+    std::vector<std::pair<std::string, double>> *category_vector;
+    // Find the category
+    if (category == LABS) {
+        category_vector = &this->labs;
+    }
+    else if (category == ASSIGNMENTS) {
+        category_vector = &this->assignments;
+    }
+    else if (category == PROJECTS) {
+        category_vector = &this->projects;
+    }
+    else if (category == EXAMS) {
+        category_vector = &this->exams;
+    } else {
+        std::cout << "Category \"" << category << "\" not found.\n\n";
+        return;
+    }
+    // Search for and update grade element
+    for (long unsigned int i = 0; i < category_vector->size(); i++) {
+        if (category_vector->operator[](i).first == name) {
+            category_vector->operator[](i).second = grade;
+            std::cout << "Grade succesffuly updated.";
+            return;
+        }
+    }
 
+    std::cout << "\""<< category << " " << name << "\" not found.\n\n";
+    return;
 }
 
 // Create/update the grades file upon termination of the program

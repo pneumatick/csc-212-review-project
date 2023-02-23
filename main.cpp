@@ -153,6 +153,28 @@ int main(int argc, char*argv[]) {
 
 	    std::cout << "\n" + user_input_category + " " + user_input_name 
 		+ " with a grade of " + user_input_grade + " added!\n" << std::endl;
+
+        } else if (value == "5") {
+            // Get user input
+            std::cout << "\nWhich category to change a grade from?\n(lab, assignment, project, exam)\n";
+            std::cin >> user_input_category;
+            // Esnure that the entered category is valid
+	        if (!(user_input_category == LABS || 
+		        user_input_category == ASSIGNMENTS ||
+		        user_input_category == PROJECTS ||
+		        user_input_category == EXAMS)) {
+		        std::cout << "\nInvalid category name: Expected lab, assignment, project, or exam\n" << std::endl;
+		        continue;
+	        }
+            grades.output_category_overview(user_input_category);
+
+            std::cout << "Which assignment would you like to change the grade of?\n";
+            std::cin >> user_input_name;
+
+            std::cout << "Input new grade:\n";
+            std::cin >> user_input_grade;
+
+            grades.update_grade(user_input_category,user_input_name,std::stod(user_input_grade));            
         
         } else if (value == "6") {  // Remove a grade from the gradebook
 
@@ -172,9 +194,8 @@ int main(int argc, char*argv[]) {
             std::cout << "Which assignment would you like to remove?\n";
             std::cin >> user_input_name;
 
-            if (grades.remove_grade(user_input_category,user_input_name)) {
-                std::cout << "Grade succesfully removed\n";
-            }
+            grades.remove_grade(user_input_category,user_input_name);
+
         
         } else if (value == "7") {  // Exit program, update grades file
             

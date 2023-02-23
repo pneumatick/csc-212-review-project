@@ -51,7 +51,7 @@ public:
     double get_total_grade();
     void add_grade(std::string category, std::string name, double grade);
     // Remove a grade from the grade book
-    bool remove_grade(std::string category, std::string name);
+    void remove_grade(std::string category, std::string name);
     // Change the grade of an element in the grade book
     void update_grade(std::string category, std::string name, double grade);
     void close(std::string filename);
