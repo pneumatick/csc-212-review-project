@@ -119,6 +119,30 @@ void Gradebook::output_category_grades(std::string category) {
     }
 }
 
+// Outputs a list of all elements in a category and their points achieved.
+void Gradebook::output_category_overview(std::string category){
+    std::vector<std::pair<std::string, double>> category_vector;
+
+    if (category == LABS) {
+        category_vector = this->labs;
+    }
+    else if (category == ASSIGNMENTS) {
+        category_vector = this->assignments;
+    }
+    else if (category == PROJECTS) {
+        category_vector = this->projects;
+    }
+    else if (category == EXAMS) {
+        category_vector = this->exams;
+    }
+
+    std::cout << "Points\t\tAssignment\nAchieved:\tName:\n";
+    for (long unsigned int i = 0; i < category_vector.size(); i++) {
+        std::cout << category_vector[i].second << "\t\t" << category << " " << category_vector[i].first << std::endl;
+    }
+    std::cout << std::endl;
+}
+
 // Return the grade of a specific assignment.
 // Returns -1.0 if the category or assignment isn't found.
 double Gradebook::get_assignment_grade(std::string category, std::string name){

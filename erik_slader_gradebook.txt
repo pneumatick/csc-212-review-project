@@ -8,10 +8,10 @@ lab 7 16
 lab 8 14
 lab 9 13
 lab 10 7
-assignment 2 50
-assignment 3 40
-assignment 4 50
-assignment 5 35
-project 1 140
+assignment 02 50
+assignment 03 40
+assignment 04 50
+assignment 05 35
+project Review 140
 project 2 300
-exam 1 90
+exam Final 90

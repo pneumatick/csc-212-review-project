@@ -49,7 +49,7 @@ int main(int argc, char*argv[]) {
             std::cin >> user_input_name;
 
 	    grade = grades.get_assignment_grade(user_input_category, user_input_name);
-	    if (grade > 0) {
+	    if (grade >= 0) {
                 std::cout << "\nPoints achieved for assignment \"" 
 	            << user_input_name << "\" in category \"" << user_input_category 
 		    << "\": " << grade << "\n\n";
@@ -68,7 +68,10 @@ int main(int argc, char*argv[]) {
 	    grade = grades.get_category_grade(user_input_category);
 	    if (grade > 0) {
                 std::cout << "\nTotal grade for category \"" 
-		    << user_input_category << "\": " << grade << "%\n\n";
+		    << user_input_category << "\": " << grade << "%\n\nCategory overview:\n";
+
+            grades.output_category_overview(user_input_category);
+            
 	    }
 	    else {
 		std::cout << "\nCategory name not found...\n" << std::endl;

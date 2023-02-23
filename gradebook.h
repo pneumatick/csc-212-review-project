@@ -42,6 +42,9 @@ public:
     double Get_Projects_Grade();
     double Get_Exam_Grade();
     void output_category_grades(std::string category);
+
+    // Outputs a list of all elements in a category and their points achieved.
+    void output_category_overview(std::string category);
     double get_assignment_grade(std::string category, std::string name);
     double get_category_grade(std::string category);
     void get_all_grades();
