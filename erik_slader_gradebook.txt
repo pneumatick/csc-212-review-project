@@ -8,6 +8,7 @@ lab 7 16
 lab 8 14
 lab 9 13
 lab 10 7
+lab 10 15
 assignment 02 50
 assignment 03 40
 assignment 04 50

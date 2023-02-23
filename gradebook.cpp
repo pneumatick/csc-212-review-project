@@ -191,26 +191,26 @@ double Gradebook::get_category_grade(std::string category){
     return 0;
 }
 
-// Output all grades for every category and the cumulative grade
-// for the class as a percentage.
-void Gradebook::get_all_grades() {
-    this->output_category_grades("lab");
-    this->output_category_grades("assignment");
-    this->output_category_grades("project");
-    this->output_category_grades("exam");
-    std::cout << "\nOverall course grade: " << this->get_total_grade() 
-	<< "%\n" << std::endl;
-}
+// // Output all grades for every category and the cumulative grade
+// // for the class as a percentage.
+// void Gradebook::get_all_grades() {
+//     this->output_category_grades("lab");
+//     this->output_category_grades("assignment");
+//     this->output_category_grades("project");
+//     this->output_category_grades("exam");
+//     std::cout << "\nOverall course grade: " << this->get_total_grade() 
+// 	<< "%\n" << std::endl;
+// }
 
-// Output the total grades for all categories and the cumulative grade 
-// for the class as a percentage.
-void Gradebook::get_all_totals() {
-    std::cout << "Labs: " << this->Get_Lab_Grade() << "%" << std::endl;
-    std::cout << "Assignments: " << this->Get_Assignment_Grade() << "%" << std::endl;
-    std::cout << "Projects: " << this->Get_Projects_Grade() << "%" << std::endl;
-    std::cout << "Exams: " << this->Get_Exam_Grade() << "%" << std::endl;
-    std::cout << "Ovarall course grade: " << this->get_total_grade() << "%\n" << std::endl;
-}
+// // Output the total grades for all categories and the cumulative grade 
+// // for the class as a percentage.
+// void Gradebook::get_all_totals() {
+//     std::cout << "Labs: " << this->Get_Lab_Grade() << "%" << std::endl;
+//     std::cout << "Assignments: " << this->Get_Assignment_Grade() << "%" << std::endl;
+//     std::cout << "Projects: " << this->Get_Projects_Grade() << "%" << std::endl;
+//     std::cout << "Exams: " << this->Get_Exam_Grade() << "%" << std::endl;
+//     std::cout << "Ovarall course grade: " << this->get_total_grade() << "%\n" << std::endl;
+// }
 
 // Return the total cumulative grade for the class as a percentage
 double Gradebook::get_total_grade(){
@@ -294,6 +294,40 @@ void Gradebook::add_grade(std::string category,std::string name, double grade){
         }
         this->exam_grades_total += grade;
     }
+
+}
+
+bool Gradebook::remove_grade(std::string category, std::string name){
+    std::vector<std::pair<std::string, double>> *category_vector;
+    // Find the category
+    if (category == LABS) {
+        category_vector = &this->labs;
+    }
+    else if (category == ASSIGNMENTS) {
+        category_vector = &this->assignments;
+    }
+    else if (category == PROJECTS) {
+        category_vector = &this->projects;
+    }
+    else if (category == EXAMS) {
+        category_vector = &this->exams;
+    } else {
+        std::cout << "Category \"" << category << "\" not found.\n\n";
+        return false;
+    }
+    // Search for and remove grade element
+    for (long unsigned int i = 0; i < category_vector->size(); i++) {
+        if (category_vector->operator[](i).first == name) {
+            category_vector->erase(category_vector->begin() + i);
+            return true;
+        }
+    }
+
+    std::cout << "\""<< category << " " << name << "\" not found.\n\n";
+    return false;
+}
+
+void Gradebook::update_grade(std::string category, std::string name, double grade){
 
 }
 

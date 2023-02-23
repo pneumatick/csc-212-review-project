@@ -30,10 +30,12 @@ int main(int argc, char*argv[]) {
         // Main menu
         std::cout << "\nInput the number for the menu choice you want executed: " << std::endl;
         std::cout << "1. Get the grade from a specific assignment." << std::endl;
-        std::cout << "2. Get the grade for a specific group of assignments " << std::endl;
-        std::cout << "3. Get your total grade. " << std::endl;
+        std::cout << "2. Get an overview for a category. " << std::endl;
+        std::cout << "3. Get an overview of your grade for the course. " << std::endl;
         std::cout << "4. Add a grade to a specific group of assignments. " << std::endl;
-        std::cout << "5. To exit program. " << std::endl;
+        std::cout << "5. Change a grade from the gradebook." << std::endl;
+        std::cout << "6. Remove a grade from the gradebook." << std::endl;
+        std::cout << "7. To exit program. " << std::endl;
 
         std::cin >> value;
 
@@ -151,8 +153,30 @@ int main(int argc, char*argv[]) {
 
 	    std::cout << "\n" + user_input_category + " " + user_input_name 
 		+ " with a grade of " + user_input_grade + " added!\n" << std::endl;
-        }
-        else if (value == "5") {  // Exit program, update grades file
+        
+        } else if (value == "6") {  // Remove a grade from the gradebook
+
+            // Get user input
+            std::cout << "\nWhich category to remove a grade from?\n(lab, assignment, project, exam)\n";
+            std::cin >> user_input_category;
+            // Esnure that the entered category is valid
+	        if (!(user_input_category == LABS || 
+		        user_input_category == ASSIGNMENTS ||
+		        user_input_category == PROJECTS ||
+		        user_input_category == EXAMS)) {
+		        std::cout << "\nInvalid category name: Expected lab, assignment, project, or exam\n" << std::endl;
+		        continue;
+	        }
+            grades.output_category_overview(user_input_category);
+
+            std::cout << "Which assignment would you like to remove?\n";
+            std::cin >> user_input_name;
+
+            if (grades.remove_grade(user_input_category,user_input_name)) {
+                std::cout << "Grade succesfully removed\n";
+            }
+        
+        } else if (value == "7") {  // Exit program, update grades file
             
             std::cout << "\nWould you like to save this gradebook?\nY/N\n";
             char user_response;
