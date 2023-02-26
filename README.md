@@ -85,7 +85,8 @@ as a command line argument for the program, assuming the
 text file is in the current working directory for the program.
 
 The text file must be formatted as each line containing the category name, assignment
-name, and then the grade of the assignment in that order all
+name, and then the grade of the assignment (amount of points towards your final grade, 
+ex: labs are out of 20 points) in that order all
 separated by a single space. The order of the assignments does not
 matter so long as they follow this format.
 
@@ -107,3 +108,42 @@ program and whatever data the user added to the text file will be saved.
 ---
 
 ### Sample Input/Output Screenshots:
+
+Text file format example, note that the organization of different types of
+assignments does not matter, so long as the same format is followed.
+
+![img.png](img.png)
+
+The menu display after compiling with the above data set.
+
+![img_1.png](img_1.png)
+
+Returning the grade of an assignment
+
+![img_2.png](img_2.png)
+
+Returning the overview of a specified category
+
+![img_3.png](img_3.png)
+
+Returning overall course grade (note that instead choosing options 1 or 2
+return the overview of all categories and just the category totals respectively
+in addition to course total)
+
+![img_4.png](img_4.png)
+
+Updating an existing grade
+
+![img_5.png](img_5.png)
+
+Removing an assignment from the file
+
+![img_6.png](img_6.png)
+
+Exiting the program
+
+![img_7.png](img_7.png)
+
+Input file after the changes from options 5 and 6
+
+![img_8.png](img_8.png)
