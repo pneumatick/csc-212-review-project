@@ -89,7 +89,52 @@ double Gradebook::Get_Projects_Grade() {
         return 100.0;
     }
 
-    return (this->project_grades_total / (MAX_PROJECT_GRADE * projects.size())) * 100;
+    return (this->project_grades_total / (MAX_PROJECT_GRADE_1 + MAX_PROJECT_GRADE_2)) * 100;
+}
+
+// Output all grades for the given category
+void Gradebook::output_category_grades(std::string category) { 
+    std::vector<std::pair<std::string, double>> category_vector;
+
+    if (category == LABS) {
+        category_vector = this->labs;
+    }
+    else if (category == ASSIGNMENTS) {
+        category_vector = this->assignments;
+    }
+    else if (category == PROJECTS) {
+        category_vector = this->projects;
+    }
+    else if (category == EXAMS) {
+        category_vector = this->exams;
+    }
+    else {
+	return;
+    }
+}
+
+// Outputs a list of all elements in a category and their points achieved.
+void Gradebook::output_category_overview(std::string category){
+    std::vector<std::pair<std::string, double>> category_vector;
+
+    if (category == LABS) {
+        category_vector = this->labs;
+    }
+    else if (category == ASSIGNMENTS) {
+        category_vector = this->assignments;
+    }
+    else if (category == PROJECTS) {
+        category_vector = this->projects;
+    }
+    else if (category == EXAMS) {
+        category_vector = this->exams;
+    }
+
+    std::cout << "Points\t\tAssignment\nAchieved:\tName:\n";
+    for (long unsigned int i = 0; i < category_vector.size(); i++) {
+        std::cout << category_vector[i].second << "\t\t" << category << " " << category_vector[i].first << std::endl;
+    }
+    std::cout << std::endl;
 }
 
 // Return the grade of a specific assignment.
@@ -126,6 +171,8 @@ double Gradebook::get_assignment_grade(std::string category, std::string name){
 
 // Returns the grade of a category as a percentage
 double Gradebook::get_category_grade(std::string category){
+    this->output_category_grades(category);
+
     if (category == LABS) {
         return this->Get_Lab_Grade();
     }
@@ -155,58 +202,162 @@ double Gradebook::get_total_grade(){
 // Manually add a new grade to the respective category
 void Gradebook::add_grade(std::string category,std::string name, double grade){
     if(category == LABS){
-        for(int i = 0; i < labs.size();i++){
-            if(std::stod(name) < std::stod(labs[i].first)){
-                labs.insert(labs.begin()+i,{name,grade});
-                i = labs.size();
+	if (this->labs.size() == 0) {
+	    this->labs.push_back({name, grade});
+            this->lab_grades_total += grade;
+	    return;
+	}
+        for(unsigned long int i = 0; i < this->labs.size();i++){
+            if(std::stod(name) < std::stod(this->labs[i].first)){
+                this->labs.insert(this->labs.begin()+i,{name,grade});
+                i = this->labs.size();
             }
-            else if(i == labs.size()-1){
-                labs.push_back({name,grade});
-                i = labs.size();
+            else if(i == this->labs.size()-1){
+                this->labs.push_back({name,grade});
+                i = this->labs.size();
             }
         }
-        this->lab_grades_total += grade;
+	this->lab_grades_total += grade;
     }
     else if(category == ASSIGNMENTS){
-        for(int i = 0; i < assignments.size();i++){
-            if(std::stod(name) < std::stod(assignments[i].first)){
-                assignments.insert(assignments.begin()+i,{name,grade});
-                i = assignments.size();
+	if (this->assignments.size() == 0) {
+	    this->assignments.push_back({name, grade});
+            this->assignment_grades_total += grade;
+	    return;
+	}
+        for(unsigned long int i = 0; i < this->assignments.size();i++){
+            if(std::stod(name) < std::stod(this->assignments[i].first)){
+                this->assignments.insert(this->assignments.begin()+i,{name,grade});
+                i = this->assignments.size();
             }
-            else if(i == assignments.size()-1){
-                assignments.push_back({name,grade});
-                i = assignments.size();
+            else if(i == this->assignments.size()-1){
+                this->assignments.push_back({name,grade});
+                i = this->assignments.size();
             }
         }
         this->assignment_grades_total+= grade;
     }
     else if(category == PROJECTS){
-        for(int i = 0; i < projects.size();i++){
-            if(std::stod(name) < std::stod(projects[i].first)){
-                projects.insert(projects.begin()+i,{name,grade});
-                i = projects.size();
+	if (this->projects.size() == 0) {
+	    this->projects.push_back({name, grade});
+            this->project_grades_total += grade;
+	    return;
+	}
+        for(unsigned long int i = 0; i < this->projects.size();i++){
+            if(std::stod(name) < std::stod(this->projects[i].first)){
+                this->projects.insert(this->projects.begin()+i,{name,grade});
+                i = this->projects.size();
             }
-            else if(i == projects.size()-1){
-                projects.push_back({name,grade});
-                i = projects.size();
+            else if(i == this->projects.size()-1){
+                this->projects.push_back({name,grade});
+                i = this->projects.size();
             }
         }
         this->project_grades_total += grade;
     }
     else if(category == EXAMS){
-        for(int i = 0; i < exams.size();i++){
-            if(std::stod(name) < std::stod(exams[i].first)){
-                exams.insert(exams.begin()+i,{name,grade});
-                i = projects.size();
+	if (this->exams.size() == 0) {
+	    this->exams.push_back({name, grade});
+	    this->exam_grades_total += grade;
+	    return;
+	}
+        for(unsigned long int i = 0; i < this->exams.size();i++){
+            if(std::stod(name) < std::stod(this->exams[i].first)){
+                this->exams.insert(this->exams.begin()+i,{name,grade});
+                i = this->exams.size();
             }
-            else if(i == exams.size()-1){
-                exams.push_back({name,grade});
-                i = projects.size();
+            else if(i == this->exams.size()-1){
+                this->exams.push_back({name,grade});
+                i = this->exams.size();
             }
         }
         this->exam_grades_total += grade;
     }
 
+}
+
+void Gradebook::remove_grade(std::string category, std::string name){
+    std::vector<std::pair<std::string, double>> *category_vector;
+    // Find the category
+    if (category == LABS) {
+        category_vector = &this->labs;
+    }
+    else if (category == ASSIGNMENTS) {
+        category_vector = &this->assignments;
+    }
+    else if (category == PROJECTS) {
+        category_vector = &this->projects;
+    }
+    else if (category == EXAMS) {
+        category_vector = &this->exams;
+    } else {
+        std::cout << "Category \"" << category << "\" not found.\n\n";
+        return;
+    }
+    // Search for and remove grade element
+    for (long unsigned int i = 0; i < category_vector->size(); i++) {
+        if (category_vector->operator[](i).first == name) {
+            if (category == LABS) {
+                this->lab_grades_total-= category_vector->operator[](i).second;
+            } else if (category == ASSIGNMENTS) {
+                this->assignment_grades_total-= category_vector->operator[](i).second;
+            } else if (category == PROJECTS) {
+                this->project_grades_total-= category_vector->operator[](i).second;
+            } else if (category == EXAMS) {
+                this->exam_grades_total-= category_vector->operator[](i).second;
+            }
+            category_vector->erase(category_vector->begin() + i);
+            std::cout << "Grade succesffuly removed.";
+            return;
+        }
+    }
+
+    std::cout << "\""<< category << " " << name << "\" not found.\n\n";
+    return;
+}
+
+void Gradebook::update_grade(std::string category, std::string name, double grade){
+    std::vector<std::pair<std::string, double>> *category_vector;
+    // Find the category
+    if (category == LABS) {
+        category_vector = &this->labs;
+    }
+    else if (category == ASSIGNMENTS) {
+        category_vector = &this->assignments;
+    }
+    else if (category == PROJECTS) {
+        category_vector = &this->projects;
+    }
+    else if (category == EXAMS) {
+        category_vector = &this->exams;
+    } else {
+        std::cout << "Category \"" << category << "\" not found.\n\n";
+        return;
+    }
+    // Search for and update grade element
+    for (long unsigned int i = 0; i < category_vector->size(); i++) {
+        if (category_vector->operator[](i).first == name) {
+            if (category == LABS) {
+                this->lab_grades_total-= category_vector->operator[](i).second;
+                this->lab_grades_total+= grade;
+            } else if (category == ASSIGNMENTS) {
+                this->assignment_grades_total-= category_vector->operator[](i).second;
+                this->assignment_grades_total+= grade;
+            } else if (category == PROJECTS) {
+                this->project_grades_total-= category_vector->operator[](i).second;
+                this->project_grades_total+= grade;
+            } else if (category == EXAMS) {
+                this->exam_grades_total-= category_vector->operator[](i).second;
+                this->exam_grades_total+= grade;
+            }
+            category_vector->operator[](i).second = grade;
+            std::cout << "Grade succesffuly updated.";
+            return;
+        }
+    }
+
+    std::cout << "\""<< category << " " << name << "\" not found.\n\n";
+    return;
 }
 
 // Create/update the grades file upon termination of the program

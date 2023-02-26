@@ -1,4 +1,0 @@
-labs 200 
-assignments 200  
-pojects 500  
-exam 100  
