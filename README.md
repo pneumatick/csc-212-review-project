@@ -83,6 +83,8 @@ in the same format that the text file is formatted.
 At compilation time, the user must provide their text file name
 as a command line argument for the program, assuming the
 text file is in the current working directory for the program.
+Compiling without a file name will default to a "grades.txt" file name
+and create a new, blank gradebook dataset.
 
 The text file must be formatted as each line containing the category name, assignment
 name, and then the grade of the assignment (amount of points towards your final grade, 
